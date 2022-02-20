@@ -27,7 +27,7 @@ func NewUserUseCase(ur repository.UserRepository) UserUseCase {
 func (uu userUseCase) FindAll(ctx *gin.Context) (users []*model.User, err error) {
 	users, err = uu.userRepository.FindAll(ctx)
 	if err != nil {
-		return nil, err
+		return users, err
 	}
 	return users, nil
 }

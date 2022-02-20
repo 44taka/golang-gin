@@ -25,7 +25,18 @@ func NewDB(c *Config) *DB {
 	})
 }
 
+func NewTestDB(c *Config) *DB {
+	fmt.Println(c.Language)
+	return newDB(&DB{
+		Host:     c.DB.Test.Host,
+		Username: c.DB.Test.Username,
+		Password: c.DB.Test.Password,
+		DBName:   c.DB.Test.DBName,
+	})
+}
+
 func newDB(d *DB) *DB {
+	fmt.Println(d.Username + ":" + d.Password + "@tcp(" + d.Host + ")/" + d.DBName + "?charset=utf8&parseTime=True&loc=Local")
 	db, err := gorm.Open(mysql.Open(d.Username + ":" + d.Password + "@tcp(" + d.Host + ")/" + d.DBName + "?charset=utf8&parseTime=True&loc=Local"))
 	if err != nil {
 		panic(err.Error())

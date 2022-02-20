@@ -12,6 +12,12 @@ type Config struct {
 			Password string
 			DBName   string
 		}
+		Test struct {
+			Host     string
+			Username string
+			Password string
+			DBName   string
+		}
 	}
 	Routing struct {
 		Port string
@@ -32,6 +38,33 @@ func NewConfig() *Config {
 	c.DB.Local.Username = "root"
 	c.DB.Local.Password = "root"
 	c.DB.Local.DBName = "my_testdb"
+
+	// ポート番号
+	c.Routing.Port = ":8080"
+
+	// 対応言語
+	c.Language = []language.Tag{
+		// 対応する言語はここに追記していく
+		language.Japanese,
+		language.English,
+	}
+
+	// JWT関連
+	c.Jwt.SecretKey = "verysecretkey"
+	c.Jwt.Issuer = "golang-gin"
+	c.Jwt.ExpirationHours = 1
+
+	return c
+}
+
+func NewTestConfig() *Config {
+	c := new(Config)
+
+	// DB設定
+	c.DB.Test.Host = "mysql-test"
+	c.DB.Test.Username = "root"
+	c.DB.Test.Password = "root"
+	c.DB.Test.DBName = "my_testdb"
 
 	// ポート番号
 	c.Routing.Port = ":8080"

@@ -27,3 +27,17 @@ services:
     volumes:
       - ./mysql/sql:/docker-entrypoint-initdb.d
       - ./mysql:/etc/mysql/conf.d
+  mysql-test:
+    image: mysql:latest
+    container_name: golang-gin.mysql-test
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: my_testdb
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      TZ: 'Asia/Tokyo'
+    ports:
+      - "33060:3306"
+    volumes:
+      - ./mysql/sql:/docker-entrypoint-initdb.d
+      - ./mysql:/etc/mysql/conf.d
