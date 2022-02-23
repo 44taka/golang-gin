@@ -7,6 +7,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Start mysql container
+          command: |
+            docker-compose up -d mysql
+            echo "wating..."
+            sleep 15s
+      - run:
           name: Start mysql-test container
           command: |
             docker-compose up -d mysql-test
