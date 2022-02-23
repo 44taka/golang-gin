@@ -10,7 +10,7 @@ import (
 
 func main() {
 
-	// コンフィグ読み込み
+	// コンフィグ読み込みaa
 	config := infrastructure.NewConfig()
 	db := infrastructure.NewDB(config)
 
