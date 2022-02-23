@@ -3,12 +3,33 @@ version: 2.1
 jobs:
   build-and-test:
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-1604:202104-01
     steps:
+      - checkout
       - run:
-          name: envファイル作成
+          name: Start mysql container
           command: |
-            echo "test!!"
+            docker-compose up -d mysql
+            echo "wating..."
+            sleep 15s
+      - run:
+          name: Start mysql-test container
+          command: |
+            docker-compose up -d mysql-test
+            echo "wating..."
+            sleep 15s
+      - run:
+          name: Build app container
+          command: |
+            docker-compose build --no-cache app
+      - run:
+          name: Start app container
+          command: |
+            docker-compose up -d app
+      - run:
+          name: Run app test
+          command: |
+            docker-compose exec app go test ./...
 
 workflows:
   version: 2
