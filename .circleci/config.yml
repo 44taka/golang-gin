@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Run app test
           command: |
-            docker-compose exec app go test -v ./...
+            docker-compose exec app go test ./...
 
 workflows:
   version: 2
