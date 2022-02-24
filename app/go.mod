@@ -1,6 +1,6 @@
 module github.com/44taka/golang-gin
 
-// +heroku goVersion go1.17
+// +heroku goVersion go1.17.0
 go 1.17
 
 require (
