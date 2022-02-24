@@ -1,4 +1,7 @@
-FROM golang:latest
+FROM golang:1.17-bullseye
+
+RUN apt update
+RUN apt -y install netcat
 
 RUN mkdir -p /go/src/github.com/44taka/golang-gin
 RUN go get -u github.com/gin-gonic/gin
