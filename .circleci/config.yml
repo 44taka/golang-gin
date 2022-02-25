@@ -32,15 +32,19 @@ jobs:
             docker-compose exec app go test ./...
 
   deploy:
-    executor: heroku/default
+    # executor: heroku/default
+    docker:
+      - image: cimg/base:2021.07
     steps:
+      - setup_remote_docker:
+          version: 19.03.13
       - checkout
       - heroku/install
       - heroku/check-authentication
       - run:
-          name: docker ps
+          name: docker build
           command: |
-            docker ps
+            docker build .
       - heroku/push-docker-image
 
 orbs: 
