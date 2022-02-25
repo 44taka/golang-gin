@@ -45,7 +45,8 @@ jobs:
           name: docker build
           command: |
             docker build .
-      - heroku/push-docker-image
+      - heroku/push-docker-image:
+          process-types: web
 
 orbs: 
   heroku: circleci/heroku@1.2.6
