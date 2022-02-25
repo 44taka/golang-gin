@@ -36,7 +36,7 @@ jobs:
       - heroku/install
       - heroku/push-docker-image:
           process-types: web
-      - release-docker-image:
+      - heroku/release-docker-image:
           process-types: web
 
 orbs: 
