@@ -38,9 +38,9 @@ jobs:
       - heroku/install
       - heroku/check-authentication
       - run:
-          name: docker version
+          name: docker ps
           command: |
-            systemctl start docker
+            docker ps
       - heroku/push-docker-image
 
 orbs: 
