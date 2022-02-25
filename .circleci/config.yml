@@ -40,7 +40,7 @@ jobs:
       - run:
           name: docker version
           command: |
-            docker --version
+            docker build .
       - heroku/push-docker-image
 
 orbs: 
