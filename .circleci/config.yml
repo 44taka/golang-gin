@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build-and-test:
+  build_and_test:
     machine:
       image: ubuntu-1604:202104-01
     steps:
@@ -10,14 +10,10 @@ jobs:
           name: Start mysql container
           command: |
             docker-compose up -d mysql
-            echo "wating..."
-            sleep 15s
       - run:
           name: Start mysql-test container
           command: |
             docker-compose up -d mysql-test
-            echo "wating..."
-            sleep 15s
       - run:
           name: Build app container
           command: |
@@ -30,9 +26,7 @@ jobs:
           name: Run app test
           command: |
             docker-compose exec app go test ./...
-
-  deploy:
-    # executor: heroku/default
+  haroku_deploy:
     docker:
       - image: cimg/base:2021.07
     steps:
@@ -40,12 +34,9 @@ jobs:
           version: 19.03.13
       - checkout
       - heroku/install
-      - heroku/check-authentication
-      - run:
-          name: docker build
-          command: |
-            docker build .
       - heroku/push-docker-image:
+          process-types: web
+      - release-docker-image:
           process-types: web
 
 orbs: 
@@ -53,9 +44,9 @@ orbs:
 
 workflows:
   version: 2
-  build-test-deploy:
+  build_and_test:
     jobs:
-       - build-and-test:
+       - build_and_test:
            filters:
              branches:
                only:
@@ -64,7 +55,7 @@ workflows:
                  - main
   heroku_deploy:
     jobs:
-      - deploy:
+      - haroku_deploy:
           filters:
             branches:
               only:
