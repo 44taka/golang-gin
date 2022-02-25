@@ -40,7 +40,7 @@ jobs:
       - run:
           name: docker version
           command: |
-            docker build .
+            systemctl start docker
       - heroku/push-docker-image
 
 orbs: 
