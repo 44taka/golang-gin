@@ -37,6 +37,10 @@ jobs:
       - checkout
       - heroku/install
       - heroku/check-authentication
+      - run:
+          name: docker version
+          command: |
+            docker --version
       - heroku/push-docker-image
 
 orbs: 
