@@ -2,7 +2,9 @@ version: "3.7"
 
 services:
   app:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile.local
     container_name: golang-gin.app
     command: ["sh", "wait-for-it.sh", "air", "-d"]
     ports:

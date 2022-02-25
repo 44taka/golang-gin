@@ -24,9 +24,4 @@ RUN go get -u github.com/uudashr/gopkgs/v2/cmd/gopkgs \
   github.com/stretchr/testify
 RUN go install github.com/golang/mock/mockgen@latest
 
-COPY ./app /go/src/github.com/44taka/golang-gin
 WORKDIR /go/src/github.com/44taka/golang-gin
-
-RUN go build main.go
-
-ENTRYPOINT ["./main"]
