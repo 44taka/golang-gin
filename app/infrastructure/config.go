@@ -34,9 +34,14 @@ func NewConfig() *Config {
 	c := new(Config)
 
 	// DB設定
-	c.DB.Local.Host = "mysql"
-	c.DB.Local.Username = "root"
-	c.DB.Local.Password = "root"
+	// c.DB.Local.Host = "mysql"
+	// c.DB.Local.Username = "root"
+	// c.DB.Local.Password = "root"
+	// c.DB.Local.DBName = "my_testdb"
+
+	c.DB.Local.Host = "postgres"
+	c.DB.Local.Username = "docker"
+	c.DB.Local.Password = "docker"
 	c.DB.Local.DBName = "my_testdb"
 
 	// ポート番号
@@ -61,10 +66,14 @@ func NewTestConfig() *Config {
 	c := new(Config)
 
 	// DB設定
-	c.DB.Test.Host = "mysql-test"
-	c.DB.Test.Username = "root"
-	c.DB.Test.Password = "root"
-	c.DB.Test.DBName = "my_testdb"
+	// c.DB.Test.Host = "mysql-test"
+	// c.DB.Test.Username = "root"
+	// c.DB.Test.Password = "root"
+	// c.DB.Test.DBName = "my_testdb"
+	c.DB.Local.Host = "postgres"
+	c.DB.Local.Username = "docker"
+	c.DB.Local.Password = "docker"
+	c.DB.Local.DBName = "my_testdb"
 
 	// ポート番号
 	c.Routing.Port = ":8080"

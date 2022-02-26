@@ -14,33 +14,46 @@ services:
     tty:
       true
     depends_on:
-      - mysql
-      - mysql-test
-  mysql:
-    image: mysql:latest
-    container_name: golang-gin.mysql
+      - postgres
+      # - mysql
+      # - mysql-test
+  postgres:
+    image: postgres:latest
+    container_name: golang-gin.postgres
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: my_testdb
-      MYSQL_USER: docker
-      MYSQL_PASSWORD: docker
-      TZ: 'Asia/Tokyo'
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: my_testdb
+      TZ: "Asia/Tokyo"
     ports:
-      - "3306:3306"
+      - 5432:5432 
     volumes:
-      - ./mysql/sql:/docker-entrypoint-initdb.d
-      - ./mysql:/etc/mysql/conf.d
-  mysql-test:
-    image: mysql:latest
-    container_name: golang-gin.mysql-test
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: my_testdb
-      MYSQL_USER: docker
-      MYSQL_PASSWORD: docker
-      TZ: 'Asia/Tokyo'
-    ports:
-      - "33060:3306"
-    volumes:
-      - ./mysql/sql:/docker-entrypoint-initdb.d
-      - ./mysql:/etc/mysql/conf.d
+      - ./postgres/init:/docker-entrypoint-initdb.d
+  # mysql:
+  #   image: mysql:latest
+  #   container_name: golang-gin.mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: my_testdb
+  #     MYSQL_USER: docker
+  #     MYSQL_PASSWORD: docker
+  #     TZ: 'Asia/Tokyo'
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - ./mysql/sql:/docker-entrypoint-initdb.d
+  #     - ./mysql:/etc/mysql/conf.d
+  # mysql-test:
+  #   image: mysql:latest
+  #   container_name: golang-gin.mysql-test
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: my_testdb
+  #     MYSQL_USER: docker
+  #     MYSQL_PASSWORD: docker
+  #     TZ: 'Asia/Tokyo'
+  #   ports:
+  #     - "33060:3306"
+  #   volumes:
+  #     - ./mysql/sql:/docker-entrypoint-initdb.d
+  #     - ./mysql:/etc/mysql/conf.d

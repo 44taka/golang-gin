@@ -7,6 +7,7 @@ RUN mkdir -p /go/src/github.com/44taka/golang-gin
 RUN go get -u github.com/gin-gonic/gin
 RUN go get -u github.com/cosmtrek/air
 RUN go get -u gorm.io/driver/mysql
+RUN go get -u gorm.io/driver/postgres
 RUN go get -u gorm.io/gorm
 RUN go get -u github.com/uudashr/gopkgs/v2/cmd/gopkgs \
   github.com/ramya-rao-a/go-outline \

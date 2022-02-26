@@ -3,7 +3,7 @@ package infrastructure
 import (
 	"fmt"
 
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -37,7 +37,12 @@ func NewTestDB(c *Config) *DB {
 
 func newDB(d *DB) *DB {
 	fmt.Println(d.Username + ":" + d.Password + "@tcp(" + d.Host + ")/" + d.DBName + "?charset=utf8&parseTime=True&loc=Local")
-	db, err := gorm.Open(mysql.Open(d.Username + ":" + d.Password + "@tcp(" + d.Host + ")/" + d.DBName + "?charset=utf8&parseTime=True&loc=Local"))
+	// db, err := gorm.Open(mysql.Open(d.Username + ":" + d.Password + "@tcp(" + d.Host + ")/" + d.DBName + "?charset=utf8&parseTime=True&loc=Local"))
+	db, err := gorm.Open(
+		postgres.Open(
+			"host=" + d.Host + " user=" + d.Username + " password=" + d.Password + " dbname=" + d.DBName + " port=5432",
+		),
+	)
 	if err != nil {
 		panic(err.Error())
 	}
