@@ -1,18 +1,22 @@
 package main
 
 import (
-	"os"
-
 	"github.com/44taka/golang-gin/infrastructure"
 	"github.com/44taka/golang-gin/infrastructure/persistence"
 	"github.com/44taka/golang-gin/interfaces/handler"
 	"github.com/44taka/golang-gin/usecase"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	// envファイル読み込み
+	err := godotenv.Load(".env")
+	if err != nil {
+		panic("failed read env...")
+	}
 
-	// コンフィグ読み込みaa
+	// コンフィグ読み込み
 	config := infrastructure.NewConfig()
 	db := infrastructure.NewDB(config)
 
@@ -27,9 +31,5 @@ func main() {
 	r.PUT("/users/:id", func(ctx *gin.Context) { userHandler.Update(ctx) })
 	r.DELETE("/users/:id", func(ctx *gin.Context) { userHandler.Delete(ctx) })
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-	r.Run(":" + port) // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	r.Run(":" + config.Routing.Port)
 }
