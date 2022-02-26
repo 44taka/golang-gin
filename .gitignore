@@ -22,3 +22,7 @@ go.work
 
 .devcontainer/*
 /app/tmp
+
+.env
+*.env
+.env.*

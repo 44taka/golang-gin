@@ -7,13 +7,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Start mysql container
+          name: Create env file
           command: |
-            docker-compose up -d mysql
+            echo $DEVELOP_ENV | base64 -di > .env
+            sudo mv .env ./app
       - run:
-          name: Start mysql-test container
+          name: Start postgres container
           command: |
-            docker-compose up -d mysql-test
+            docker-compose up -d postgres
       - run:
           name: Build app container
           command: |
@@ -33,6 +34,11 @@ jobs:
       - setup_remote_docker:
           version: 19.03.13
       - checkout
+      - run:
+          name: Create env file
+          command: |
+            echo $PRODUCTION_ENV | base64 -di > .env
+            sudo mv .env ./app
       - heroku/install
       - heroku/push-docker-image:
           process-types: web
