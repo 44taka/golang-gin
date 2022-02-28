@@ -11,6 +11,7 @@ type DB struct {
 	Password   string
 	DBName     string
 	Port       string
+	URI        string
 	Connection *gorm.DB
 }
 
@@ -21,6 +22,7 @@ func NewDB(c *Config) *DB {
 		Password: c.DB.Password,
 		DBName:   c.DB.DBName,
 		Port:     c.DB.Port,
+		URI:      c.DB.URI,
 	})
 }
 
@@ -31,6 +33,7 @@ func NewTestDB(c *Config) *DB {
 		Password: c.DB.Password,
 		DBName:   c.DB.DBName,
 		Port:     c.DB.Port,
+		URI:      c.DB.URI,
 	})
 }
 

@@ -1,14 +1,26 @@
 FROM golang:1.17-bullseye
 
-RUN apt update
-RUN apt -y install netcat
+RUN apt update && \
+    apt install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    netcat
+
+RUN curl -sSL https://packagecloud.io/golang-migrate/migrate/gpgkey | apt-key add -
+RUN echo "deb https://packagecloud.io/golang-migrate/migrate/ubuntu/ bionic main" > /etc/apt/sources.list.d/migrate.list
+RUN apt update && \
+    apt install -y migrate
 
 RUN mkdir -p /go/src/github.com/44taka/golang-gin
-RUN go get -u github.com/gin-gonic/gin
-RUN go get -u github.com/cosmtrek/air
-RUN go get -u gorm.io/driver/mysql
-RUN go get -u gorm.io/gorm
+
+# TODO:go installに変更する。
 RUN go get -u github.com/uudashr/gopkgs/v2/cmd/gopkgs \
+  github.com/gin-gonic/gin \
+  github.com/cosmtrek/air \
+  gorm.io/gorm \
+  gorm.io/driver/postgres \
   github.com/ramya-rao-a/go-outline \
   github.com/google/uuid \
   github.com/nsf/gocode \
@@ -22,7 +34,8 @@ RUN go get -u github.com/uudashr/gopkgs/v2/cmd/gopkgs \
   github.com/dgrijalva/jwt-go \ 
   github.com/appleboy/gin-jwt/v2 \
   github.com/stretchr/testify \
-  github.com/joho/godotenv
+  github.com/joho/godotenv \
+  github.com/golang-migrate/migrate
 RUN go install github.com/golang/mock/mockgen@latest
 
 WORKDIR /go/src/github.com/44taka/golang-gin

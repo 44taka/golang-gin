@@ -1,4 +1,5 @@
-destory:
+# TODO:makefileを整備する
+destroy:
 	docker-compose down --rmi all --volumes --remove-orphans
 
 build:
