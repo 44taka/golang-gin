@@ -1,11 +1,1 @@
 create table users (id SERIAL not null, name varchar(100) not null, password varchar(10) not null);
-insert into users values (1, 'ichiro', 'password');
-insert into users values (2, 'jiro', 'password');
-insert into users values (3, 'saburo', 'password');
-insert into users values (4, 'shiro', 'password');
-insert into users values (5, 'goro', 'password');
-insert into users values (6, 'rokuro', 'password');
-insert into users values (7, 'shichiro', 'password');
-insert into users values (8, 'hachiro', 'password');
-insert into users values (9, 'kuro', 'password');
-insert into users values (10, 'juro', 'password');

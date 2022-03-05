@@ -9,4 +9,4 @@ up:
 	docker-compose up -d
 
 test:
-	docker-compose exec app go test -v ./...
+	docker-compose exec app bash -c "go clean -testcache && go test -v ./..."

@@ -22,7 +22,7 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		os.Exit(1)
 	}
-	db := infrastructure.NewTestDB(infrastructure.NewTestConfig()).Connect()
+	db := infrastructure.NewDB(infrastructure.NewConfig()).Connect()
 	db.Exec("delete from users")
 	for i := 0; i < len(users); i++ {
 		db.Exec(
@@ -33,7 +33,7 @@ func TestMain(m *testing.M) {
 		)
 	}
 	status := m.Run()
-	db.Exec("delete from users")
+	// db.Exec("delete from users")
 	os.Exit(status)
 }
 
@@ -82,7 +82,7 @@ func TestUserPersistenceFindByAll(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 
 			// TODO:gormはモック化したい
-			db := infrastructure.NewTestDB(infrastructure.NewTestConfig())
+			db := infrastructure.NewDB(infrastructure.NewConfig())
 			userPersistence := NewUserPersistence(db.Connection)
 			ctx, _ := gin.CreateTestContext(httptest.NewRecorder())
 			got, err := userPersistence.FindAll(ctx)
@@ -126,8 +126,8 @@ func TestUserPersistenceFindById(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 
 			// TODO:gormはモック化したい
-			config := infrastructure.NewTestConfig()
-			db := infrastructure.NewTestDB(config)
+			config := infrastructure.NewConfig()
+			db := infrastructure.NewDB(config)
 			userPersistence := NewUserPersistence(db.Connection)
 
 			ctx, _ := gin.CreateTestContext(httptest.NewRecorder())
@@ -151,6 +151,7 @@ func TestUserPersistenceCreate(t *testing.T) {
 		{
 			name: "データ登録",
 			want: model.User{
+				ID:       6,
 				Name:     "rokuro",
 				Password: "password",
 			},
@@ -171,8 +172,8 @@ func TestUserPersistenceCreate(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 
 			// TODO:gormはモック化したい
-			config := infrastructure.NewTestConfig()
-			db := infrastructure.NewTestDB(config)
+			config := infrastructure.NewConfig()
+			db := infrastructure.NewDB(config)
 			userPersistence := NewUserPersistence(db.Connection)
 
 			ctx, _ := gin.CreateTestContext(httptest.NewRecorder())
@@ -225,7 +226,7 @@ func TestUserPersistenceUpdate(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 
 			// TODO:gormはモック化したい
-			db := infrastructure.NewTestDB(infrastructure.NewTestConfig())
+			db := infrastructure.NewDB(infrastructure.NewConfig())
 			userPersistence := NewUserPersistence(db.Connection)
 
 			ctx, _ := gin.CreateTestContext(httptest.NewRecorder())
@@ -265,7 +266,7 @@ func TestUserPersistenceDelete(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 
 			// TODO:gormはモック化したい
-			db := infrastructure.NewTestDB(infrastructure.NewTestConfig())
+			db := infrastructure.NewDB(infrastructure.NewConfig())
 			userPersistence := NewUserPersistence(db.Connection)
 
 			ctx, _ := gin.CreateTestContext(httptest.NewRecorder())

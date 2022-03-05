@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http/httptest"
 	"os"
@@ -25,7 +24,7 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		os.Exit(1)
 	}
-	db := infrastructure.NewTestDB(infrastructure.NewTestConfig()).Connect()
+	db := infrastructure.NewDB(infrastructure.NewConfig()).Connect()
 	db.Exec("delete from users")
 	for i := 0; i < len(users); i++ {
 		db.Exec(
@@ -56,10 +55,6 @@ func TestFindById(t *testing.T) {
 	userUseCase := usecase.NewUserUseCase(userPersistence)
 	userHandler := NewUserHandler(userUseCase)
 	userHandler.FindById(ctx)
-
-	fmt.Println("********************")
-	fmt.Println(response.Body.String())
-	fmt.Println("********************")
 
 	// ctx, _ := gin.CreateTestContext(httptest.NewRecorder())
 	// mockUserUseCase := mocks.NewMockUserUseCase(ctrl)
