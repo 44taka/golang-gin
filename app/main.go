@@ -13,13 +13,19 @@ func main() {
 	// envファイル読み込み
 	err := godotenv.Load(".env")
 	if err != nil {
-		panic("failed read env...")
+		panic(err)
 	}
-
 	// コンフィグ読み込み
 	config := infrastructure.NewConfig()
 	db := infrastructure.NewDB(config)
 
+	// マイグレーション実行
+	err = infrastructure.Migrate(config)
+	if err != nil {
+		panic(err)
+	}
+
+	// ハンドラー読み込み
 	userPersistence := persistence.NewUserPersistence(db.Connect())
 	userUseCase := usecase.NewUserUseCase(userPersistence)
 	userHandler := handler.NewUserHandler(userUseCase)
