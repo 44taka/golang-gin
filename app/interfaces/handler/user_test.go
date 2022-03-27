@@ -27,7 +27,7 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		os.Exit(1)
 	}
-	db := infrastructure.NewDB(infrastructure.NewConfig()).Connect()
+	db := infrastructure.NewDB(infrastructure.NewTestConfig()).Connect()
 	db.Exec("delete from users")
 	for i := 0; i < len(users); i++ {
 		db.Exec(
@@ -308,7 +308,7 @@ func TestDelete(t *testing.T) {
 }
 
 func getHandler() UserHandler {
-	config := infrastructure.NewConfig()
+	config := infrastructure.NewTestConfig()
 	db := infrastructure.NewDB(config)
 	userPersistence := persistence.NewUserPersistence(db.Connect())
 	userUseCase := usecase.NewUserUseCase(userPersistence)
