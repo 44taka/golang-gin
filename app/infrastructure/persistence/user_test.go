@@ -255,9 +255,14 @@ func TestUserPersistenceDelete(t *testing.T) {
 			err:  nil,
 		},
 		{
-			name: "エラー",
+			name: "データなし",
 			want: model.User{ID: 999},
-			err:  errors.New("failed delete user"),
+			err:  errors.New("user is not found"),
+		},
+		{
+			name: "エラー",
+			want: model.User{ID: 999999999999999999},
+			err:  errors.New("failed delete user..."),
 		},
 	}
 

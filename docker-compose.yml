@@ -17,6 +17,7 @@ services:
       true
     depends_on:
       - postgres
+      - postgres-test
   postgres:
     image: postgres:latest
     container_name: golang-gin.postgres
@@ -26,5 +27,16 @@ services:
       TZ: "Asia/Tokyo"
     ports:
       - 5432:5432 
+    volumes:
+      - ./postgres/init:/docker-entrypoint-initdb.d
+  postgres-test:
+    image: postgres:latest
+    container_name: golang-gin.postgres-test
+    env_file:
+      - ./app/.env
+    environment:
+      TZ: "Asia/Tokyo"
+    ports:
+      - 5433:5432 
     volumes:
       - ./postgres/init:/docker-entrypoint-initdb.d

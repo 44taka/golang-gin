@@ -32,6 +32,7 @@ func (uh userHandler) FindAll(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{
 			"message": "not found user",
+			"result":  nil,
 		})
 		return
 	}
@@ -48,6 +49,7 @@ func (uh userHandler) FindById(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": "バリデーションエラー",
+			"result":  nil,
 		})
 		return
 	}
@@ -55,6 +57,7 @@ func (uh userHandler) FindById(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{
 			"message": err.Error(),
+			"result":  nil,
 		})
 		return
 	}
@@ -71,6 +74,7 @@ func (uh userHandler) Create(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": "バリデーションエラー",
+			"result":  nil,
 		})
 		return
 	}
@@ -78,9 +82,11 @@ func (uh userHandler) Create(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": "failed...",
+			"result":  nil,
 		})
 		return
 	}
+	// ctx.Writer.WriteHeader(http.StatusCreated)
 	ctx.AbortWithStatus(http.StatusCreated)
 	return
 }
@@ -91,6 +97,7 @@ func (uh userHandler) Update(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": "バリデーションエラー",
+			"result":  nil,
 		})
 		return
 	}
@@ -99,6 +106,7 @@ func (uh userHandler) Update(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": "バリデーションエラー",
+			"result":  nil,
 		})
 		return
 	}
@@ -106,6 +114,7 @@ func (uh userHandler) Update(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": "failed...",
+			"result":  nil,
 		})
 		return
 	}
@@ -119,6 +128,7 @@ func (uh userHandler) Delete(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": "バリデーションエラー",
+			"result":  nil,
 		})
 		return
 	}
@@ -126,6 +136,7 @@ func (uh userHandler) Delete(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": "failed...",
+			"result":  nil,
 		})
 		return
 	}
