@@ -17,6 +17,7 @@ services:
       true
     depends_on:
       - postgres
+      - postgres-test
   postgres:
     image: postgres:latest
     container_name: golang-gin.postgres
